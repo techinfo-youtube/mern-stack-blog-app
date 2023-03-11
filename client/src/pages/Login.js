@@ -4,6 +4,7 @@ import { Box, Typography, TextField, Button } from "@mui/material";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { authActions } from "../redux/store";
+import toast from "react-hot-toast";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -30,8 +31,9 @@ const Login = () => {
         password: inputs.password,
       });
       if (data.success) {
+        localStorage.setItem("userId", data?.user._id);
         dispatch(authActions.login());
-        alert("User login Successfully");
+        toast.success("User login Successfully");
         navigate("/");
       }
     } catch (error) {
